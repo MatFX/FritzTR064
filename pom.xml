@@ -24,36 +24,56 @@
   </dependencies>
   
   <build>
-    <sourceDirectory>examples</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-       <version>3.8.0</version>
-        <configuration>
-          <source/>
-          		<source>1.8</source>
-				<target>1.8</target>
-				<compilerId>eclipse</compilerId>
-          <target/>
-        </configuration>
-      </plugin>
-      <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.1</version>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
-					<archive>
-						<!-- <manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>jar/</classpathPrefix>
-							<useUniqueVersions>false</useUniqueVersions>
-							<mainClass>bsc_main.BoSe_loader</mainClass>
-						</manifest> -->
-					</archive>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
-    </plugins>
-  </build>
+			<plugin>
+      			<groupId>org.apache.maven.plugins</groupId>
+      			<artifactId>maven-source-plugin</artifactId>
+      			<executions>
+        			<execution>
+          				<id>attach-sources</id>
+          				<goals>
+            				<goal>jar</goal>
+          				</goals>
+        			</execution>
+      			</executions>
+    		</plugin>
+    		<plugin>
+    			<artifactId>maven-resources-plugin</artifactId>
+    			<version>2.6</version>
+    			<executions>
+    				<execution>
+    					<id>copy-resources</id>
+    					<phase>compile</phase>
+    					<goals>
+    						<goal>copy-resources</goal>
+    					</goals>
+    					<configuration>
+    						<outputDirectory>${basedir}/target/classes</outputDirectory>
+    						<includeEmptyDirs>true</includeEmptyDirs>
+    						<resources>
+    							<resource>
+    								<directory>${basedir}/target/maven-status/maven-compiler-plugin/compile/default-compile</directory>
+    								<filtering>false</filtering>
+    								<includes>
+    									<include>createdFiles.lst</include>
+    								</includes>
+    							</resource>
+    						</resources>
+    					</configuration>
+    				</execution>
+    			</executions>
+    		</plugin>
+		</plugins>
+	</build>
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
